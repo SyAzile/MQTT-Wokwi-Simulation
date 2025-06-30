@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "author": "Aman Mark",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 192, "left": -4.76, "attrs": {} },
+    {
+      "type": "wokwi-rgb-led",
+      "id": "rgb1",
+      "top": 90.4,
+      "left": 529.1,
+      "rotate": 90,
+      "attrs": { "common": "cathode" }
+    },
+    {
+      "type": "wokwi-dht22",
+      "id": "dht2",
+      "top": -18.9,
+      "left": 445.8,
+      "attrs": {}
+    },
+    { "type": "wokwi-gas-sensor", "id": "gas1", "top": -26.1, "left": 189.4, "attrs": {} },
+    {
+      "type": "wokwi-hc-sr04",
+      "id": "ultrasonic1",
+      "top": 452.7,
+      "left": 5.5,
+      "attrs": {}
+    },
+    { "type": "wokwi-pir-motion-sensor", "id": "pir1", "top": 450, "left": 250, "attrs": {} },
+    {
+      "type": "wokwi-dht22",
+      "id": "dht1",
+      "top": -28.5,
+      "left": -322.2,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-photoresistor-sensor",
+      "id": "ldr1",
+      "top": 108.8,
+      "left": -248.8,
+      "attrs": {}
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "rgb1:COM", "esp:GND.2", "black", [ "v0", "h-200", "v150" ] ],
+    [ "rgb1:R", "esp:23", "red", [ "v0", "h-180", "v130" ] ],
+    [ "rgb1:G", "esp:22", "green", [ "v0", "h-160", "v110" ] ],
+    [ "rgb1:B", "esp:21", "blue", [ "v0", "h-140", "v90" ] ],
+    [ "dht2:VCC", "esp:3V3", "red", [ "v0", "h-120", "v-350" ] ],
+    [ "dht2:GND", "esp:GND.2", "black", [ "v0", "h-100", "v-350" ] ],
+    [ "dht2:SDA", "esp:26", "white", [ "v0", "h-80", "v-350" ] ],
+    [ "gas1:VCC", "esp:3V3", "red", [ "v0", "h-60", "v-450" ] ],
+    [ "gas1:GND", "esp:GND.2", "black", [ "v0", "h-40", "v-450" ] ],
+    [ "gas1:AOUT", "esp:32", "white", [ "v0", "h-20", "v-450" ] ],
+    [ "ultrasonic1:VCC", "esp:3V3", "red", [ "v0", "h-250", "v250" ] ],
+    [ "ultrasonic1:GND", "esp:GND.1", "black", [ "v0", "h-270", "v250" ] ],
+    [ "ultrasonic1:TRIG", "esp:12", "white", [ "v0", "h-290", "v250" ] ],
+    [ "ultrasonic1:ECHO", "esp:14", "orange", [ "v0", "h-310", "v250" ] ],
+    [ "pir1:VCC", "esp:3V3", "red", [ "v0", "h50", "v250" ] ],
+    [ "pir1:OUT", "esp:2", "white", [ "v0", "h30", "v250" ] ],
+    [ "pir1:GND", "esp:GND.2", "black", [ "v0", "h10", "v250" ] ],
+    [ "ldr1:AO", "esp:27", "white", [ "v0", "h-0", "v-150" ] ],
+    [ "ldr1:GND", "esp:GND.2", "black", [ "v0", "h-0", "v-100" ] ],
+    [ "ldr1:VCC", "esp:3V3", "cyan", [ "v0", "h-0", "v-150" ] ],
+    [ "dht1:VCC", "esp:3V3", "red", [ "v0", "h-0", "v-450" ] ],
+    [ "dht1:SDA", "esp:33", "white", [ "v0", "h-0", "v-450" ] ],
+    [ "dht1:GND", "esp:GND.2", "black", [ "v0", "h-0", "v-450" ] ]
+  ],
+  "dependencies": {}
+}
