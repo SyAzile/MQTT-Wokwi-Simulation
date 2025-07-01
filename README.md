@@ -13,7 +13,7 @@ Simulating **Message Queuing Telemetry Transport (MQTT)** Protocol using [Wokwi]
     C:\Program Files\mosquitto
     ```
 
-- Now, Open **Notepad as Administrator** and save the following in the above directory by the name **mosquitto.conf** file.
+- Now, Open **Notepad as Administrator** and Save the following in the above directory by the name **mosquitto.conf** file.
     ```text
     listener 1883 0.0.0.0
     protocol MQTT
@@ -110,4 +110,85 @@ graph TD
 | **Disconnect** | `disconnect` | `client_id` | Disconnect client from all rooms | `home/control/response/{client_id}` | `{"action": "disconnect", "client_id": "C-01"}` |
 | **Status** | `status` | `client_id` | Get client subscription status | `home/control/response/{client_id}` | `{"action": "status", "client_id": "C-01"}` |
 
+</details>
+
+<details open>
+    <summary>🤔 How to Run?</summary>
+
+- First, Go to Wokwi and Open [Basic ESP32 Project](https://wokwi.com/projects/new/esp32).
+
+- **Create New File** named `main.py`.
+
+- From the repository, use the `diagram.json` and `main.py`.
+
+- **Run the code in Wokwi**.
+
+- Meanwhile, open **Command Prompt** and **Subscribe to Topics** to view messages.
+
+
+### Commands to Test Simulation
+
+1. **Monitor all Topics.**
+    ```cmd
+    mosquitto_sub -h test.mosquitto.org -t "home/#" -v
+    ```
+
+2. **Monitor Specific Topics**.
+    - Monitor Contorl Messages
+        ```cmd
+        mosquitto_sub -h test.mosquitto.org -t "home/control/#" -v
+        ```
+
+    - Monitor Room Readings
+        ```cmd
+        mosquitto_sub -h test.mosquitto.org -t "home/rooms/#" -v
+        ```
+
+    - Monitor System Summary
+        ```cmd
+        mosquitto_sub -h test.mosquitto.org -t "home/summary" -v
+        ```
+
+3. **Subscribe Client to Rooms**
+    - Subscribe C-01 to gate only
+        ```cmd
+        mosquitto_pub -h test.mosquitto.org -t "home/control" -m "{\"action\": \"subscribe\", \"client_id\": \"C-01\", \"rooms\": [\"gate\"]}"
+        ```
+
+    - Subscribe C-02 to all rooms
+        ```cmd
+        mosquitto_pub -h test.mosquitto.org -t "home/control" -m "{\"action\": \"subscribe\", \"client_id\": \"client3\", \"rooms\": [\"room1\", \"kitchen\", \"gate\"]}"
+        ```
+
+4. **Monitor Client Status**
+    ```cmd
+    mosquitto_pub -h test.mosquitto.org -t "home/control" -m "{\"action\": \"status\", \"client_id\": \"C-01\"}"
+    ```
+
+5. **Unsubscribe Client from Rooms**
+    - Remove client2 from multiple rooms
+        ```cmd
+        mosquitto_pub -h test.mosquitto.org -t "home/control" -m "{\"action\": \"unsubscribe\", \"client_id\": \"C-02\", \"rooms\": [\"kitchen\", \"gate\"]}"
+        ```
+
+6. **Disconnect Client**
+    ```cmd
+    mosquitto_pub -h test.mosquitto.org -t "home/control" -m "{\"action\": \"disconnect\", \"client_id\": \"C-01\"}"
+    ```
+
+6. **Monitor Specific Room Data**
+    - Monitor room1 readings
+        ```cmd
+        mosquitto_sub -h test.mosquitto.org -t "home/rooms/room1" -v
+        ```
+    
+    - Monitor kitchen readings  
+        ```cmd
+        mosquitto_sub -h test.mosquitto.org -t "home/rooms/kitchen" -v
+        ```
+
+    - Monitor gate readings
+        ```cmd
+        mosquitto_sub -h test.mosquitto.org -t "home/rooms/gate" -v
+        ```
 </details>
