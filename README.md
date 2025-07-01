@@ -39,51 +39,11 @@ Simulating **Message Queuing Telemetry Transport (MQTT)** Protocol using [Wokwi]
 
 <br>
 
-```text
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                          ESP32 MICROCONTROLLER                              │
-└─────────────────────────────────────────────────────────────────────────────┘
-                                      │
-                    ┌─────────────────┼──────────────────┐
-                    │                 │                  │
-        ┌───────────▼──────────┐  ┌───▼─────┐  ┌─────────▼─────────┐
-        │        ROOM1         │  │ KITCHEN │  │     MAIN GATE     │
-        │   ┌─────────────┐    │  │ ┌─────┐ │  │ ┌─────────────┐   │
-        │   │    DHT22    │    │  │ │DHT22│ │  │ │ ULTRASONIC  │   │
-        │   │ (Temp/Hum)  │    │  │ │     │ │  │ │   SENSOR    │   │
-        │   └─────────────┘    │  │ └─────┘ │  │ └─────────────┘   │
-        │                      │  │         │  │                   │
-        │   ┌─────────────┐    │  │ ┌─────┐ │  │ ┌─────────────┐   │
-        │   │     LDR     │    │  │ │ MQ  │ │  │ │ PIR SENSOR  │   │
-        │   │  (Light)    │    │  │ │ GAS │ │  │ │  (Motion)   │   │
-        │   └─────────────┘    │  │ └─────┘ │  │ └─────────────┘   │
-        └──────────────────────┘  └─────────┘  └───────────────────┘
+<center>
+    <img src="./assets/System-Design.svg">
+</center>
 
-                              ┌───────────────────┐
-                              │      RGB LED      │
-                              │                   │
-                              │ ┌─────┬─────┬────┐│
-                              │ │ RED │GREEN│BLUE││
-                              │ └─────┴─────┴────┘│
-                              └───────────────────┘
-                                Status Indicator
-                              (Kitchen Temperature)
-
-NETWORK CONNECTIVITY:
-┌──────────────────┐          ┌─────────────────────────┐
-│   WiFi Network   │◄────────►│      MQTT Broker        │
-│   Wokwi-GUEST    │          │   test.mosquitto.org    │
-└──────────────────┘          │      Port: 1883         │
-                              └─────────────────────────┘
-
-SENSOR MAPPING:
-
-Room1 (My Room):     DHT22 + LDR → Temperature, Humidity, Light
-Kitchen:             DHT22 + MQ Gas → Temperature, Humidity, Gas Level  
-Main Gate:           Ultrasonic + PIR → Distance, Motion Detection
-```
-
-- For complete circuit diagrams and pin connections, refer to [Connections.md](./docs/Connections.md).
+- For complete circuit diagrams and pin connections, refer to [CONNECTIONS.md](./docs/Connections.md).
 
 ### Base Topic: `home/`
 
@@ -134,31 +94,31 @@ graph TD
     ```
 
 2. **Monitor Specific Topics**.
-    - Monitor Contorl Messages
-        ```cmd
-        mosquitto_sub -h test.mosquitto.org -t "home/control/#" -v
-        ```
+- Monitor Control Messages
+    ```cmd
+    mosquitto_sub -h test.mosquitto.org -t "home/control/#" -v
+    ```
 
-    - Monitor Room Readings
-        ```cmd
-        mosquitto_sub -h test.mosquitto.org -t "home/rooms/#" -v
-        ```
+- Monitor Room Readings
+    ```cmd
+    mosquitto_sub -h test.mosquitto.org -t "home/rooms/#" -v
+    ```
 
-    - Monitor System Summary
-        ```cmd
-        mosquitto_sub -h test.mosquitto.org -t "home/summary" -v
-        ```
+- Monitor System Summary
+    ```cmd
+    mosquitto_sub -h test.mosquitto.org -t "home/summary" -v
+    ```
 
 3. **Subscribe Client to Rooms**
-    - Subscribe C-01 to gate only
-        ```cmd
-        mosquitto_pub -h test.mosquitto.org -t "home/control" -m "{\"action\": \"subscribe\", \"client_id\": \"C-01\", \"rooms\": [\"gate\"]}"
-        ```
+- Subscribe C-01 to gate only
+    ```cmd
+    mosquitto_pub -h test.mosquitto.org -t "home/control" -m "{\"action\": \"subscribe\", \"client_id\": \"C-01\", \"rooms\": [\"gate\"]}"
+    ```
 
-    - Subscribe C-02 to all rooms
-        ```cmd
-        mosquitto_pub -h test.mosquitto.org -t "home/control" -m "{\"action\": \"subscribe\", \"client_id\": \"client3\", \"rooms\": [\"room1\", \"kitchen\", \"gate\"]}"
-        ```
+- Subscribe C-02 to all rooms
+    ```cmd
+    mosquitto_pub -h test.mosquitto.org -t "home/control" -m "{\"action\": \"subscribe\", \"client_id\": \"client3\", \"rooms\": [\"room1\", \"kitchen\", \"gate\"]}"
+    ```
 
 4. **Monitor Client Status**
     ```cmd
@@ -166,10 +126,10 @@ graph TD
     ```
 
 5. **Unsubscribe Client from Rooms**
-    - Remove client2 from multiple rooms
-        ```cmd
-        mosquitto_pub -h test.mosquitto.org -t "home/control" -m "{\"action\": \"unsubscribe\", \"client_id\": \"C-02\", \"rooms\": [\"kitchen\", \"gate\"]}"
-        ```
+- Remove client2 from multiple rooms
+    ```cmd
+    mosquitto_pub -h test.mosquitto.org -t "home/control" -m "{\"action\": \"unsubscribe\", \"client_id\": \"C-02\", \"rooms\": [\"kitchen\", \"gate\"]}"
+    ```
 
 6. **Disconnect Client**
     ```cmd
@@ -177,18 +137,18 @@ graph TD
     ```
 
 6. **Monitor Specific Room Data**
-    - Monitor room1 readings
-        ```cmd
-        mosquitto_sub -h test.mosquitto.org -t "home/rooms/room1" -v
-        ```
-    
-    - Monitor kitchen readings  
-        ```cmd
-        mosquitto_sub -h test.mosquitto.org -t "home/rooms/kitchen" -v
-        ```
+- Monitor room1 readings
+    ```cmd
+    mosquitto_sub -h test.mosquitto.org -t "home/rooms/room1" -v
+    ```
 
-    - Monitor gate readings
-        ```cmd
-        mosquitto_sub -h test.mosquitto.org -t "home/rooms/gate" -v
-        ```
+- Monitor kitchen readings  
+    ```cmd
+    mosquitto_sub -h test.mosquitto.org -t "home/rooms/kitchen" -v
+    ```
+
+- Monitor gate readings
+    ```cmd
+    mosquitto_sub -h test.mosquitto.org -t "home/rooms/gate" -v
+    ```
 </details>
