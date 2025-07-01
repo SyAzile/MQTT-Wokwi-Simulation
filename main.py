@@ -18,7 +18,7 @@ ultrasonic_trig = Pin(12, Pin.OUT)
 ultrasonic_echo = Pin(14, Pin.IN)
 
 # Setting up Analog Sensors
-ldr_adc = ADC(Pin(34))
+ldr_adc = ADC(Pin(27))
 ldr_adc.atten(ADC.ATTN_11DB)
 
 gas_adc = ADC(Pin(32))
