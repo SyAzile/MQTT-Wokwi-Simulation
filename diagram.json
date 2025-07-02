@@ -63,7 +63,7 @@
     [ "pir1:VCC", "esp:3V3", "red", [ "v0", "h50", "v250" ] ],
     [ "pir1:OUT", "esp:2", "white", [ "v0", "h30", "v250" ] ],
     [ "pir1:GND", "esp:GND.2", "black", [ "v0", "h10", "v250" ] ],
-    [ "ldr1:AO", "esp:27", "white", [ "v0", "h-0", "v-150" ] ],
+    [ "ldr1:AO", "esp:34", "white", [ "v0", "h-0", "v-150" ] ],
     [ "ldr1:GND", "esp:GND.2", "black", [ "v0", "h-0", "v-100" ] ],
     [ "ldr1:VCC", "esp:3V3", "cyan", [ "v0", "h-0", "v-150" ] ],
     [ "dht1:VCC", "esp:3V3", "red", [ "v0", "h-0", "v-450" ] ],
