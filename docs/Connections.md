@@ -21,7 +21,7 @@
 
     | Sensor | Component | ESP32 Pin | Pin Name |
     |--------|-----------|-----------|----------|
-    | LDR (Light Sensor) | ldr1 | GPIO 27 | AO |
+    | LDR (Light Sensor) | ldr1 | GPIO 34 | AO |
     | Gas Sensor (MQ) | gas1 | GPIO 32 | AOUT |
 
     **Output Devices**
