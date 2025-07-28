@@ -59,12 +59,12 @@ graph TD
 
 ### Control Commands
 
-| Command | Action | Required Fields | Description | Response Topic | Example JSON |
-|---------|--------|-----------------|-------------|----------------|--------------|
-| **Subscribe** | `subscribe` | `client_id`, `rooms` | Subscribe client to specific rooms | `home/control/response/{client_id}` | `{"action": "subscribe", "client_id": "C-01", "rooms": ["room1", "kitchen"]}` |
-| **Unsubscribe** | `unsubscribe` | `client_id`, `rooms` | Unsubscribe client from specific rooms | `home/control/response/{client_id}` | `{"action": "unsubscribe", "client_id": "C-01", "rooms": ["room1"]}` |
-| **Disconnect** | `disconnect` | `client_id` | Disconnect client from all rooms | `home/control/response/{client_id}` | `{"action": "disconnect", "client_id": "C-01"}` |
-| **Status** | `status` | `client_id` | Get client subscription status | `home/control/response/{client_id}` | `{"action": "status", "client_id": "C-01"}` |
+| Command | Action | Required Fields | Description |
+|---------|--------|-----------------|-------------|
+| **Subscribe** | `subscribe` | `client_id`, `rooms` | Subscribe client to specific rooms |
+| **Unsubscribe** | `unsubscribe` | `client_id`, `rooms` | Unsubscribe client from specific rooms |
+| **Disconnect** | `disconnect` | `client_id` | Disconnect client from all rooms |
+| **Status** | `status` | `client_id` | Get client subscription status |
 
 </details>
 
