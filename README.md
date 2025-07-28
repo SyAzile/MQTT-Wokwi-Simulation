@@ -35,13 +35,9 @@ Simulating **Message Queuing Telemetry Transport (MQTT)** Protocol using [Wokwi]
 </details>
 
 <details open>
-<summary><b>🤖 Circuit Layout and Topics</b></summary>
+<summary><b>🤖 Subscription Topics</b></summary>
 
 <br>
-
-<center>
-    <img src="./assets/System-Design.svg">
-</center>
 
 - For complete circuit diagrams and pin connections, refer to [CONNECTIONS.md](./docs/Connections.md).
 
@@ -73,7 +69,7 @@ graph TD
 </details>
 
 <details open>
-    <summary>🤔 How to Run?</summary>
+    <summary><b>🤔 How to Run?</b></summary>
 
 - First, Go to Wokwi and Open [Basic ESP32 Project](https://wokwi.com/projects/new/esp32).
 
